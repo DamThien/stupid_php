@@ -7,6 +7,9 @@ use App\Http\Controllers\SumController;
 use App\Http\Controllers\SignupController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\createTable;
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -22,20 +25,21 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::prefix('F8ckGroup')->group( function(){
-    Route::get('User1',function(){
-        echo "user1";
-    });
-    Route::get('User2', function () {
-        echo "user2";
-    });
-    Route::get('User3', function () {
-        echo "user3";
-    });
-}
-); 
+Route::prefix('F8ckGroup')->group(
+    function () {
+        Route::get('User1', function () {
+            echo "user1";
+        });
+        Route::get('User2', function () {
+            echo "user2";
+        });
+        Route::get('User3', function () {
+            echo "user3";
+        });
+    }
+);
 
-Route::get('abc',[UserController::class, 'Hi']);
+Route::get('abc', [UserController::class, 'Hi']);
 
 Route::get('sum', [SumController::class, 'GetValue']);
 Route::post('sum', [SumController::class, 'Result']);
@@ -47,3 +51,5 @@ Route::post('signup', [SignupController::class, 'displayInfor']);
 Route::get('room', [AdminController::class, 'index']);
 Route::post('room', [AdminController::class, 'addRoom']);
 Route::get('home', [HomeController::class, 'index']);
+
+Route::get('/', [createTable::class, 'createTable']);
