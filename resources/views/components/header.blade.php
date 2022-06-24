@@ -105,4 +105,9 @@
             </nav>
         </div> <!-- .container -->
     </div> <!-- .header-bottom -->
+    <div>
+       
+            <p>$name</p>
+
+    </div>
 </div> <!-- #header -->

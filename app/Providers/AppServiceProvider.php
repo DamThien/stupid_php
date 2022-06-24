@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\DB;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -24,5 +26,10 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         //
+        view::share('header', function($view)
+        {
+            $name = DB::table('product')->where('id')->value('name');
+            $view->with('name_new', $name);
+        });
     }
 }

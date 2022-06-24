@@ -8,6 +8,8 @@ use App\Http\Controllers\SignupController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\createTable;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\App;
 
 
 /*
@@ -53,3 +55,8 @@ Route::post('room', [AdminController::class, 'addRoom']);
 Route::get('home', [HomeController::class, 'index']);
 
 Route::get('/', [createTable::class, 'createTable']);
+
+Route::get('asd', function () {
+    $data = DB::table('products')->find(3);
+    print_r($data);
+});
