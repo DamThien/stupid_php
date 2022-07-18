@@ -1,7 +1,5 @@
 <?php
-
 namespace App\Console\Commands;
-
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 
@@ -49,5 +47,6 @@ class dbcreate extends Command
         DB::statement($query);
 
         config(["database.connections.mysql.database" => $schemaName]);
+
     }
 }

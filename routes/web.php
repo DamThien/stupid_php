@@ -1,17 +1,8 @@
 <?php
 
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PageController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\SumController;
-use App\Http\Controllers\SignupController;
-use App\Http\Controllers\AdminController;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\createTable;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\App;
-
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -23,40 +14,92 @@ use Illuminate\Support\Facades\App;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
+// ----------------- TRANG CHU ---------------
+Route::get('/', [PageController::class , 'getIndex']);
+Route::get('/type/{id}', [PageController::class , 'getLoaiSp']);
+
+Route::get('/detail/{id}', [PageController::class, 'getDetail']);
+
+
+Route::get('/contact', [PageController::class , 'getContact']);
+Route::get('/about', [PageController::class , 'getAbout']);
+// ----------------- TRANG ADMIN ---------------
+Route::get('/formAdd', [PageController::class , 'getAdminpage'])->name('admin');
+Route::post('/formAdd', [PageController::class , 'postAdminAdd'])->name('add-product');
+Route::get('/showadmin',[PageController::class, 'getIndexAdmin']);
+
+Route::get('/admin-edit-form/{id}',[PageController::class,'getAdminEdit']);
+Route::post('/admin-edit',[PageController::class,'postAdminEdit']);
+Route::post('/admin-delete/{id}',[PageController::class,'postAdminDelete']);
+
+//---------------- CART ---------------
+Route::get('add-to-cart/{id}', [PageController::class, 'getAddToCart'])->name('themgiohang');
+Route::get('del-cart/{id}', [PageController::class, 'getDelItemCart'])->name('xoagiohang');
+
+//------------------------- Login, Logout, Register ---------------------------------//
+Route::get('/register', function () {
+    return view('users.register');
 });
 
-Route::prefix('F8ckGroup')->group(
-    function () {
-        Route::get('User1', function () {
-            echo "user1";
-        });
-        Route::get('User2', function () {
-            echo "user2";
-        });
-        Route::get('User3', function () {
-            echo "user3";
-        });
-    }
-);
+Route::post('/register', [UserController::class, 'Register']);
 
-Route::get('abc', [UserController::class, 'Hi']);
-
-Route::get('sum', [SumController::class, 'GetValue']);
-Route::post('sum', [SumController::class, 'Result']);
-
-Route::get('signup', [SignupController::class, 'index']);
-Route::post('signup', [SignupController::class, 'displayInfor']);
-
-
-Route::get('room', [AdminController::class, 'index']);
-Route::post('room', [AdminController::class, 'addRoom']);
-Route::get('home', [HomeController::class, 'index']);
-
-Route::get('/', [createTable::class, 'createTable']);
-
-Route::get('asd', function () {
-    $data = DB::table('products')->find(3);
-    print_r($data);
+Route::get('/login', function () {
+    return view('users.login');
 });
+
+Route::get('/logout', [UserController::class, 'Logout']);
+Route::post('/login', [UserController::class, 'Login']);
+//--------------CHECKOUT----------------//
+Route::get('check-out', [PageController::class, 'getCheckout'])->name('dathang');
+Route::post('check-out', [PageController::class, 'postCheckout'])->name('dathang');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Route::get('/', function () 
+// {
+//     $data = DB::table('customers')->get();
+//     print_r($data);
+// });
+// Route::get('/', function () 
+// {
+//     $data =DB::table('customers')->orderBy('name','desc')->get();
+//     print_r($data);
+// });
+// Route::get('/', function () 
+// {
+//     $data =DB::table('customers')->find(3);
+//     print_r($data);
+// });
+// Route::get('/', function () 
+// {
+//     $data =DB::table('customers')->select('name', 'email')->get();
+//     print_r($data);
+// });
+// Route::get('/', function () 
+// {
+//     $data =DB::table('customers')->distinct()->get();
+//     print_r($data);
+// });
+
+
